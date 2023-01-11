@@ -18,6 +18,19 @@ export interface ICourse {
     course_form: Form
 }
 
+export interface IOpinion {
+    is_approved: boolean
+    description: string
+    status: OpinionStatus
+    user: string
+    plan: string
+}
+
+enum OpinionStatus {
+    Positive,
+    Negative
+}
+
 enum Type {
     laboratory,
     practice,

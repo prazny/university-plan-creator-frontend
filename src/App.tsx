@@ -13,7 +13,7 @@ import {
 
 import routerProvider from "@pankod/refine-react-router-v6";
 import dataProvider from "@pankod/refine-simple-rest";
-import {FacultyList} from "./pages";
+import {FacultyList, OpinionList} from "./pages";
 import {CustomLayout} from "./components/layout";
 import {CustomSider} from "./components/layout/sider";
 
@@ -37,6 +37,10 @@ const App: React.FC = () => {
                         {
                             name: "faculties",
                             list: FacultyList,
+                        }, 
+                        {
+                            name: "opinions",
+                            list: OpinionList
                         }
                     ]}
                 />
