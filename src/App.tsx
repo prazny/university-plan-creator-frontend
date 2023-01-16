@@ -16,6 +16,7 @@ import dataProvider from "@pankod/refine-simple-rest";
 import {FacultyList, OpinionList} from "./pages";
 import {CustomLayout} from "./components/layout";
 import {CustomSider} from "./components/layout/sider";
+import { CourseList } from "./pages/courses";
 
 const App: React.FC = () => {
     return (
@@ -41,6 +42,10 @@ const App: React.FC = () => {
                         {
                             name: "opinions",
                             list: OpinionList
+                        }, 
+                        {
+                            name: "courses",
+                            list: CourseList
                         }
                     ]}
                 />
