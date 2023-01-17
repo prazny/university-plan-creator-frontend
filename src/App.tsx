@@ -17,6 +17,8 @@ import { FacultyList, OpinionList, PlansList } from "./pages";
 import { CustomLayout } from "./components/layout";
 import { CustomSider } from "./components/layout/sider";
 import {FacultyCreate} from "./pages/faculties/create";
+import {FieldList} from "./pages/fields";
+import {FieldCreate} from "./pages/fields/create";
 
 const App: React.FC = () => {
   return (
@@ -37,6 +39,11 @@ const App: React.FC = () => {
               name: "faculties",
               list: FacultyList,
               create: FacultyCreate,
+            },
+            {
+              name: "fields",
+              list: FieldList,
+              create: FieldCreate
             },
             {
               name: "opinions",

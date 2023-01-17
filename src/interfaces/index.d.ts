@@ -5,6 +5,14 @@ export interface IFaculty {
   name: string;
 }
 
+export interface IField {
+  id: int,
+  name: string;
+  profile: string;
+  level: string;
+  faculty_id: int;
+}
+
 export interface ICourse {
   id: number;
   name: string;
@@ -28,6 +36,7 @@ export interface IOpinion {
 }
 
 export interface IPlans {
+  id: int,
   year: number;
   form: string;
   number_of_semesters: number;

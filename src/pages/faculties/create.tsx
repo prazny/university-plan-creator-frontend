@@ -13,10 +13,6 @@ import {useForm, Controller} from "@pankod/refine-react-hook-form";
 import {IFaculty} from "../../interfaces";
 
 
-const columns: GridColumns<IFaculty> = [
-    {field: "name", headerName: "Name", flex: 1, minWidth: 350},
-];
-
 export const FacultyCreate: React.FC = () => {
     const {dataGridProps} = useDataGrid<IFaculty>();
     const {
