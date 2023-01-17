@@ -1,6 +1,7 @@
 import internal from "stream";
 
 export interface IFaculty {
+  id: int,
   name: string;
 }
 

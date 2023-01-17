@@ -9,12 +9,14 @@ import {
   RefineSnackbarProvider,
   notificationProvider,
 } from "@pankod/refine-mui";
+import { MuiInferencer } from "@pankod/refine-inferencer/mui";
 
 import routerProvider from "@pankod/refine-react-router-v6";
 import dataProvider from "@pankod/refine-simple-rest";
 import { FacultyList, OpinionList, PlansList } from "./pages";
 import { CustomLayout } from "./components/layout";
 import { CustomSider } from "./components/layout/sider";
+import {FacultyCreate} from "./pages/faculties/create";
 
 const App: React.FC = () => {
   return (
@@ -34,6 +36,7 @@ const App: React.FC = () => {
             {
               name: "faculties",
               list: FacultyList,
+              create: FacultyCreate,
             },
             {
               name: "opinions",
