@@ -44,6 +44,12 @@ export interface IPlans {
   field_id: number;
 }
 
+export interface ISemester {
+  id: int,
+  max_ects_deficit: int;
+  semester_number: int;
+}
+
 enum OpinionStatus {
   Positive,
   Negative,

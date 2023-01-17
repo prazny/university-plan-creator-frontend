@@ -20,6 +20,8 @@ import {FacultyCreate} from "./pages/faculties/create";
 import {FieldList} from "./pages/fields";
 import {FieldCreate} from "./pages/fields/create";
 import {PlanCreate} from "./pages/plans/create";
+import {SemestersList} from "./pages/semesters";
+import {SemesterCreate} from "./pages/semesters/create";
 
 const App: React.FC = () => {
   return (
@@ -54,6 +56,11 @@ const App: React.FC = () => {
               name: "plans",
               list: PlansList,
               create: PlanCreate
+            },
+            {
+              name: "semesters",
+              list: SemestersList,
+              create: SemesterCreate
             },
           ]}
         />
