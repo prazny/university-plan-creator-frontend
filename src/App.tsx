@@ -19,6 +19,7 @@ import { CustomSider } from "./components/layout/sider";
 import {FacultyCreate} from "./pages/faculties/create";
 import {FieldList} from "./pages/fields";
 import {FieldCreate} from "./pages/fields/create";
+import {PlanCreate} from "./pages/plans/create";
 
 const App: React.FC = () => {
   return (
@@ -52,6 +53,7 @@ const App: React.FC = () => {
             {
               name: "plans",
               list: PlansList,
+              create: PlanCreate
             },
           ]}
         />
