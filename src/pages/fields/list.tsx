@@ -7,11 +7,13 @@ import {
     DateField,
     List, DeleteButton,
 } from "@pankod/refine-mui";
-import {IFaculty} from "../../interfaces";
+import {IField} from "../../interfaces";
 
 
-const columns: GridColumns<IFaculty> = [
+const columns: GridColumns<IField> = [
     {field: "name", headerName: "Name", flex: 1, minWidth: 350},
+    {field: "profile", headerName: "Profile", flex: 1, minWidth: 350},
+    {field: "level", headerName: "Level", flex: 1, minWidth: 350},
     {
         field: "actions", headerName: "Actions", renderCell: function render({row}) {
             return (
@@ -23,8 +25,8 @@ const columns: GridColumns<IFaculty> = [
     }
 ];
 
-export const FacultyList: React.FC = () => {
-    const {dataGridProps} = useDataGrid<IFaculty>();
+export const FieldList: React.FC = () => {
+    const {dataGridProps} = useDataGrid<IField>();
 
     return (
         <>
