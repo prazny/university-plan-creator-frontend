@@ -1,12 +1,12 @@
 import internal from "stream";
 
 export interface IFaculty {
-  id: int,
+  id: int;
   name: string;
 }
 
 export interface IField {
-  id: int,
+  id: int;
   name: string;
   profile: string;
   level: string;
@@ -36,18 +36,20 @@ export interface IOpinion {
 }
 
 export interface IPlans {
-  id: int,
+  id: number;
   year: number;
   form: string;
   number_of_semesters: number;
   lang: string;
-  field_id: number;
+  field_id: IField.name;
+  semesters: List[ISemester];
 }
 
 export interface ISemester {
-  id: int,
+  id: int;
   max_ects_deficit: int;
   semester_number: int;
+  activities: List[ICourse];
 }
 
 enum OpinionStatus {
@@ -63,9 +65,4 @@ enum Type {
   seminar,
   lang_course,
   thesis,
-}
-
-enum Form {
-  stationary,
-  remote,
 }

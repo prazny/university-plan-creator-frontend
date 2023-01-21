@@ -8,6 +8,7 @@ import {
   GlobalStyles,
   RefineSnackbarProvider,
   notificationProvider,
+  DarkTheme,
 } from "@pankod/refine-mui";
 import { MuiInferencer } from "@pankod/refine-inferencer/mui";
 
@@ -16,16 +17,17 @@ import dataProvider from "@pankod/refine-simple-rest";
 import { FacultyList, OpinionList, PlansList } from "./pages";
 import { CustomLayout } from "./components/layout";
 import { CustomSider } from "./components/layout/sider";
-import {FacultyCreate} from "./pages/faculties/create";
-import {FieldList} from "./pages/fields";
-import {FieldCreate} from "./pages/fields/create";
-import {PlanCreate} from "./pages/plans/create";
-import {SemestersList} from "./pages/semesters";
-import {SemesterCreate} from "./pages/semesters/create";
+import { FacultyCreate } from "./pages/faculties/create";
+import { FieldList } from "./pages/fields";
+import { FieldCreate } from "./pages/fields/create";
+import { PlanCreate } from "./pages/plans/create";
+import { SemestersList } from "./pages/semesters";
+import { SemesterCreate } from "./pages/semesters/create";
+import { PlanShow } from "./pages/plans/show";
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider theme={LightTheme}>
+    <ThemeProvider theme={DarkTheme}>
       <CssBaseline />
       <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
       <RefineSnackbarProvider>
@@ -46,7 +48,7 @@ const App: React.FC = () => {
             {
               name: "fields",
               list: FieldList,
-              create: FieldCreate
+              create: FieldCreate,
             },
             {
               name: "opinions",
@@ -55,12 +57,13 @@ const App: React.FC = () => {
             {
               name: "plans",
               list: PlansList,
-              create: PlanCreate
+              show: PlanShow,
+              create: PlanCreate,
             },
             {
               name: "semesters",
               list: SemestersList,
-              create: SemesterCreate
+              create: SemesterCreate,
             },
           ]}
         />
