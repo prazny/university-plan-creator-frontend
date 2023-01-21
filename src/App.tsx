@@ -17,6 +17,7 @@ import dataProvider from "@pankod/refine-simple-rest";
 import { FacultyList, OpinionList, PlansList } from "./pages";
 import { CustomLayout } from "./components/layout";
 import { CustomSider } from "./components/layout/sider";
+
 import { FacultyCreate } from "./pages/faculties/create";
 import { FieldList } from "./pages/fields";
 import { FieldCreate } from "./pages/fields/create";
@@ -24,6 +25,11 @@ import { PlanCreate } from "./pages/plans/create";
 import { SemestersList } from "./pages/semesters";
 import { SemesterCreate } from "./pages/semesters/create";
 import { PlanShow } from "./pages/plans/show";
+import { OpinionCreate } from "./pages/opinions/create";
+import { UsersList } from "./pages/users";
+import { UserCreate } from "./pages/users/create";
+
+
 
 const App: React.FC = () => {
   return (
@@ -53,6 +59,7 @@ const App: React.FC = () => {
             {
               name: "opinions",
               list: OpinionList,
+              create: OpinionCreate
             },
             {
               name: "plans",
@@ -65,6 +72,11 @@ const App: React.FC = () => {
               list: SemestersList,
               create: SemesterCreate,
             },
+            {
+              name: "users",
+              list: UsersList,
+              create: UserCreate
+            }
           ]}
         />
       </RefineSnackbarProvider>

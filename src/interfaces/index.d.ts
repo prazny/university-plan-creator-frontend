@@ -31,8 +31,8 @@ export interface IOpinion {
   is_approved: boolean;
   description: string;
   status: OpinionStatus;
-  user: string;
-  plan: string;
+  user_id: int;
+  plan_id: int;
 }
 
 export interface IPlans {
@@ -50,6 +50,12 @@ export interface ISemester {
   max_ects_deficit: int;
   semester_number: int;
   activities: List[ICourse];
+}
+
+export interface IUser {
+  id: int;
+  login: string;
+  email: string;
 }
 
 enum OpinionStatus {
