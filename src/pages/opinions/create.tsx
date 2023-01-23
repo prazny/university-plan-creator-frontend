@@ -10,7 +10,8 @@ import {
     Autocomplete, useAutocomplete, Select, MenuItem, InputLabel, FormControl, Checkbox
 } from "@pankod/refine-mui";
 import {useForm, Controller} from "@pankod/refine-react-hook-form";
-import {IOpinion} from "../../interfaces";
+import {IOpinion, IUser} from "../../interfaces";
+import { useMany } from "@pankod/refine-core";
 
 
 export const OpinionCreate: React.FC = () => {
@@ -39,6 +40,7 @@ export const OpinionCreate: React.FC = () => {
                     sx={{display: "flex", flexDirection: "column"}}
                     autoComplete="off"
                 >
+                   
                     <label>Czy zatwierdzona?</label>
                     <Checkbox
                         {...register("is_approved", {
@@ -77,7 +79,7 @@ export const OpinionCreate: React.FC = () => {
                                                               (p) =>
                                                                   p?.id?.toString() ===
                                                                   item?.id?.toString(),
-                                                          )?.name ?? ""
+                                                          )?.email ?? ""
                                                       );
                                                   }}
                                                   isOptionEqualToValue={(option, value) =>

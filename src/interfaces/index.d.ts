@@ -28,6 +28,7 @@ export interface ICourse {
 }
 
 export interface IOpinion {
+  id: number;
   is_approved: boolean;
   description: string;
   status: OpinionStatus;
@@ -56,6 +57,8 @@ export interface IUser {
   id: int;
   login: string;
   email: string;
+  password: string;
+  opinions: List[IOpinion];
 }
 
 enum OpinionStatus {
