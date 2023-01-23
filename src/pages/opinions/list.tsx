@@ -3,16 +3,28 @@ import {
     useDataGrid,
     DataGrid,
     GridColumns,
-    List
+    List,
+    ShowButton
 } from "@pankod/refine-mui";
 import {IOpinion} from "../../interfaces";
 
 
 const columns: GridColumns<IOpinion> = [
-    {field: "user", headerName: "User", flex: 1, minWidth: 200},
-    {field: "plan", headerName: "Plan", flex: 1, minWidth: 200},
-    {field: "is_approved", headerName: "Approved", flex: 1, minWidth: 200},
-    {field: "status", headerName: "Status", flex: 1, minWidth: 200}
+    {field: "is_approved", headerName: "Approved", flex: 1, minWidth: 100},
+    {field: "status", headerName: "Status", flex: 1, minWidth: 100},
+    {field: "user_id", headerName: "User", flex: 1, minWidth: 100},
+    {field: "plan_id", headerName: "Plan", flex: 1, minWidth: 100},
+    {
+        field: "actions",
+        headerName: "Actions",
+        renderCell: function render({ row }) {
+          return (
+            <>
+              <ShowButton hideText recordItemId={row.id} />
+            </>
+          );
+        },
+    }
 ];
 
 export const OpinionList: React.FC = () => {

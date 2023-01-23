@@ -28,6 +28,7 @@ import { PlanShow } from "./pages/plans/show";
 import { OpinionCreate } from "./pages/opinions/create";
 import { UsersList } from "./pages/users";
 import { UserCreate } from "./pages/users/create";
+import { OpinionShow } from "./pages/opinions/show";
 
 
 
@@ -59,7 +60,8 @@ const App: React.FC = () => {
             {
               name: "opinions",
               list: OpinionList,
-              create: OpinionCreate
+              create: OpinionCreate,
+              show: OpinionShow
             },
             {
               name: "plans",
