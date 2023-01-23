@@ -58,6 +58,7 @@ export interface IUser {
   login: string;
   email: string;
   password: string;
+  opinions: List[IOpinion];
 }
 
 enum OpinionStatus {

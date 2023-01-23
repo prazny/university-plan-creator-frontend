@@ -12,8 +12,8 @@ import {IOpinion} from "../../interfaces";
 const columns: GridColumns<IOpinion> = [
     {field: "is_approved", headerName: "Approved", flex: 1, minWidth: 100},
     {field: "status", headerName: "Status", flex: 1, minWidth: 100},
-    {field: "user_id", headerName: "User", flex: 1, minWidth: 100},
-    {field: "plan_id", headerName: "Plan", flex: 1, minWidth: 100},
+    {field: "user_id", headerName: "User identifier", flex: 1, minWidth: 100},
+    {field: "plan_id", headerName: "Plan identifier", flex: 1, minWidth: 100},
     {
         field: "actions",
         headerName: "Actions",
