@@ -15,8 +15,7 @@ import {
   useDataGrid,
   GridColumns,
 } from "@pankod/refine-mui";
-import { IPlans, IField, ICourse, ISemester, IOpinion, IUser } from "../../interfaces";
-
+import { IPlans, IOpinion, IUser } from "../../interfaces";
 
 
 export const OpinionShow: React.FC = () => {
@@ -25,18 +24,20 @@ export const OpinionShow: React.FC = () => {
 
   const record = data?.data;
 
-  const data2 = useOne<IUser>({
+  const user_data = useOne<IUser>({
     resource: "users",
     id: record?.user_id,
   });
+  const plan_data = useOne<IPlans>({
+    resource: "plans",
+    id: record?.plan_id,
+  });
 
-  const field_data = data2.data?.data;
+  const user_details = user_data.data?.data;
+  const plan_details = plan_data.data?.data;
+  console.log(user_details);
+  console.log(plan_details);
   const show = [];
-
-  enum Form {
-    fulltime = "Full time",
-    parttime = "Part time",
-  }
 
   for (var record_elem in record) {
     if (
@@ -51,9 +52,6 @@ export const OpinionShow: React.FC = () => {
 
     if (record_elem != "")
       record_elem = (record_elem as string).replaceAll("_", " ");
-
-    if (record_elem == "form")
-      value_record = Form[value_record as keyof typeof Form];
 
     if (record_elem == "lang") record_elem = "Language";
 
