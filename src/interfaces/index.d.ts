@@ -75,3 +75,8 @@ enum Type {
   lang_course,
   thesis,
 }
+
+enum Form {
+  stationary,
+  remote
+}
