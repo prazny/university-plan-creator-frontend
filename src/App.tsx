@@ -32,6 +32,7 @@ import { OpinionShow } from "./pages/opinions/show";
 import { CourseList } from "./pages/courses";
 import { CourseCreate } from "./pages/courses/create";
 import { CourseShow } from "./pages/courses/show";
+import { CourseEdit } from "./pages/courses/edit";
 
 
 
@@ -54,6 +55,7 @@ const App: React.FC = () => {
               name: "courses",
               list: CourseList,
               create: CourseCreate,
+              edit: CourseEdit,
               show: CourseShow
             },
             {

@@ -5,7 +5,7 @@ import {
     GridColumns,
     TagField,
     DateField,
-    List, DeleteButton, ShowButton,
+    List, DeleteButton, ShowButton, EditButton,
 } from "@pankod/refine-mui";
 import {ICourse} from "../../interfaces";
 
@@ -22,6 +22,7 @@ const columns: GridColumns<ICourse> = [
           return (
             <>
               <ShowButton hideText recordItemId={row.id} />
+              <EditButton hideText recordItemId={row.id} />
             </>
           );
         },
