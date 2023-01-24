@@ -29,6 +29,7 @@ import { OpinionCreate } from "./pages/opinions/create";
 import { UsersList } from "./pages/users";
 import { UserCreate } from "./pages/users/create";
 import { OpinionShow } from "./pages/opinions/show";
+import { CourseList } from "./pages/courses";
 
 
 
@@ -47,6 +48,10 @@ const App: React.FC = () => {
           Sider={CustomSider}
           catchAll={<ErrorComponent />}
           resources={[
+            {
+              name: "courses",
+              list: CourseList
+            },
             {
               name: "faculties",
               list: FacultyList,
