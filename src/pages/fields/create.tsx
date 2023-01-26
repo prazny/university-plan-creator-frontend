@@ -91,7 +91,7 @@ export const FieldCreate: React.FC = () => {
                                 name="faculty_id"
                                 rules={{required: "This field is required"}}
                         // eslint-disable-next-line
-                                defaultValue={null as any}
+                                defaultValue={undefined}
                                 render={({field}) => (
                                     <Autocomplete {...facultyAutocompleteProps}
                                                   {...field}
@@ -100,16 +100,15 @@ export const FieldCreate: React.FC = () => {
                                                   }}
                                                   getOptionLabel={(item) => {
                                                       return (
-                                                          facultyAutocompleteProps?.options?.find(
-                                                              (p) =>
-                                                                  p?.id?.toString() ===
-                                                                  item?.id?.toString(),
-                                                          )?.name ?? ""
+                                                          item?.name
                                                       );
                                                   }}
-                                                  isOptionEqualToValue={(option, value) =>
-                                                      value === undefined ||
+
+                                                  isOptionEqualToValue={(option, value) => {
+                                                      return value === undefined ||
                                                       option.id.toString() === value?.id?.toString()
+                                                  }
+
                                                   }
                                                   renderInput={(params) => (
                                                       <TextField
