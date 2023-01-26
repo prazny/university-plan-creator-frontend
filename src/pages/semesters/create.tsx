@@ -40,7 +40,7 @@ export const SemesterCreate: React.FC = () => {
                                 name="plan_id"
                                 rules={{required: "This field is required"}}
                         // eslint-disable-next-line
-                                defaultValue={null as any}
+                                defaultValue={undefined as any}
                                 render={({field}) => (
                                     <Autocomplete {...planAutocompleteProps}
                                                   {...field}
@@ -49,11 +49,7 @@ export const SemesterCreate: React.FC = () => {
                                                   }}
                                                   getOptionLabel={(item) => {
                                                       return (
-                                                          planAutocompleteProps?.options?.find(
-                                                              (p) =>
-                                                                  p?.id?.toString() ===
-                                                                  item?.id?.toString(),
-                                                          )?.year ?? ""
+                                                          item?.year
                                                       );
                                                   }}
                                                   isOptionEqualToValue={(option, value) =>
