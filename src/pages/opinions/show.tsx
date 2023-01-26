@@ -59,8 +59,8 @@ export const OpinionShow: React.FC = () => {
       value_record = value_record ? "true" : "false"
 
     if (record_elem == "user id") {
-      record_elem = record_elem + " " + user_details?.login
-      value_record = value_record + " " + user_details?.email
+      record_elem = record_elem + " " + user_details?.id + " email"
+      value_record = user_details?.email
     }
 
     if (record_elem == "plan id") {
