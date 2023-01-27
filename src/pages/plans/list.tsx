@@ -5,6 +5,7 @@ import {
   GridColumns,
   List,
   ShowButton,
+  GridToolbar,
 } from "@pankod/refine-mui";
 import { useMany } from "@pankod/refine-core";
 import { IPlans, IField } from "../../interfaces";
@@ -81,6 +82,7 @@ export const PlansList: React.FC = () => {
           onFilterModelChange={onFilterModelChange}
           sortModel={sortModel}
           onSortModelChange={onSortModelChange}
+          components={{ Toolbar: GridToolbar }}
         />
       </List>
     </>

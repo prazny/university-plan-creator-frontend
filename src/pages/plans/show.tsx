@@ -14,24 +14,16 @@ import {
   DataGrid,
   useDataGrid,
   GridColumns,
+  minWidth,
+  GridExpandMoreIcon,
+  GridAddIcon,
+  GridViewHeadlineIcon,
+  GridFilterListIcon,
+  GridKeyboardArrowRight,
 } from "@pankod/refine-mui";
 import { IPlans, IField, ICourse, ISemester } from "../../interfaces";
-
-const columns: GridColumns<ISemester> = [
-  {
-    field: "semester_number",
-    headerName: "Semester number",
-    flex: 1,
-    minWidth: 200,
-  },
-  { field: "id", headerName: "ID", flex: 1, minWidth: 200 },
-  {
-    field: "max_ects_deficit",
-    headerName: "Max ECTS deficit",
-    flex: 1,
-    minWidth: 200,
-  },
-];
+import { TreeView, TreeItem } from "@mui/lab";
+import { JsxElement } from "typescript";
 
 export const PlanShow: React.FC = () => {
   const { queryResult } = useShow<IPlans>();
@@ -198,7 +190,30 @@ export const PlanShow: React.FC = () => {
     );
   }
 
-  const rows = record?.semesters != undefined ? record.semesters : [];
+  const rows_semester =
+    record?.semesters != undefined
+      ? (record.semesters as Array<ISemester>)
+      : ([] as Array<ISemester>);
+
+  const show_semesters = [] as Array<JSX.Element>;
+
+  let index = 0;
+  rows_semester.forEach((semester) => {
+    const show_activities = [] as Array<JSX.Element>;
+    (semester.activities as Array<ICourse>).forEach((activity) => {
+      let text = `Name: ${activity.name} ECTS: ${activity.ects}`;
+      show_activities.push(
+        <TreeItem nodeId={`${index++}`} label={text}></TreeItem>
+      );
+    });
+
+    show_semesters.push(
+      <TreeItem nodeId={`${index++}`} label={semester.semester_number}>
+        {show_activities}
+      </TreeItem>
+    );
+  });
+  console.log(show_semesters);
 
   return (
     <>
@@ -212,7 +227,18 @@ export const PlanShow: React.FC = () => {
         >
           {show}
           <Grid item key="semesters" xs={12}>
-            <DataGrid rows={rows} columns={columns} autoHeight />
+            <TreeView
+              aria-label="semesters view"
+              defaultCollapseIcon={<GridExpandMoreIcon />}
+              defaultExpandIcon={<GridKeyboardArrowRight />}
+              sx={{
+                height: 240,
+                flexGrow: 1,
+                overflowY: "auto",
+              }}
+            >
+              {show_semesters}
+            </TreeView>
           </Grid>
         </Grid>
       </Show>

@@ -14,7 +14,7 @@ export interface IField {
 }
 
 export interface ICourse {
-  id: number;
+  id: int;
   name: string;
   ects: number;
   cnps: number;
@@ -78,5 +78,5 @@ enum Type {
 
 enum Form {
   stationary,
-  remote
+  remote,
 }
