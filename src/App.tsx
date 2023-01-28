@@ -52,13 +52,6 @@ const App: React.FC = () => {
           catchAll={<ErrorComponent />}
           resources={[
             {
-              name: "courses",
-              list: CourseList,
-              create: CourseCreate,
-              edit: CourseEdit,
-              show: CourseShow
-            },
-            {
               name: "faculties",
               list: FacultyList,
               create: FacultyCreate,
@@ -67,12 +60,6 @@ const App: React.FC = () => {
               name: "fields",
               list: FieldList,
               create: FieldCreate,
-            },
-            {
-              name: "opinions",
-              list: OpinionList,
-              create: OpinionCreate,
-              show: OpinionShow
             },
             {
               name: "plans",
@@ -84,6 +71,19 @@ const App: React.FC = () => {
               name: "semesters",
               list: SemestersList,
               create: SemesterCreate,
+            },
+            {
+              name: "courses",
+              list: CourseList,
+              create: CourseCreate,
+              edit: CourseEdit,
+              show: CourseShow
+            },
+            {
+              name: "opinions",
+              list: OpinionList,
+              create: OpinionCreate,
+              show: OpinionShow
             },
             {
               name: "users",
