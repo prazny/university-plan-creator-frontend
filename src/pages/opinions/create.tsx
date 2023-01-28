@@ -62,11 +62,30 @@ export const OpinionCreate: React.FC = () => {
                         name="description"
                     />
                    
+                   <FormControl fullWidth >
+                        <InputLabel id="status-label">Status</InputLabel>
+                        <Select
+                            {...register("status", {
+                                required: "This field is required",
+                            })}
+                            error={!!(errors as any)?.title}
+                            label="status"
+                            name="status"
+                            sx={{
+                                width: 200,
+                                height: 50,
+                            }}
+                        >
+                            <MenuItem value="positive">pozytywny</MenuItem>
+                            <MenuItem value="negative">negatywny</MenuItem>
+                        </Select>
+                    </FormControl>
+
                    <Controller control={control}
                                 name="user_id"
                                 rules={{required: "This field is required"}}
                         // eslint-disable-next-line
-                                defaultValue={null as any}
+                                defaultValue={undefined}
                                 render={({field}) => (
                                     <Autocomplete {...userAutocompleteProps}
                                                   {...field}
@@ -107,7 +126,7 @@ export const OpinionCreate: React.FC = () => {
                                 name="plan_id"
                                 rules={{required: "This field is required"}}
                         // eslint-disable-next-line
-                                defaultValue={null as any}
+                                defaultValue={undefined}
                                 render={({field}) => (
                                     <Autocomplete {...planAutocompleteProps}
                                                   {...field}
@@ -117,10 +136,11 @@ export const OpinionCreate: React.FC = () => {
                                                   getOptionLabel={(item) => {
                                                       return (
                                                           planAutocompleteProps?.options?.find(
-                                                              (p) =>
-                                                                  p?.id?.toString() ===
-                                                                  item?.id?.toString(),
-                                                          )?.year ?? ""
+                                                            (p) =>
+                                                                p?.id?.toString() ===
+                                                                item?.id?.toString(),
+                                                            )?.year 
+                                                          ?? ""
                                                       );
                                                   }}
                                                   isOptionEqualToValue={(option, value) =>
