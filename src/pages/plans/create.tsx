@@ -40,7 +40,7 @@ export const PlanCreate: React.FC = () => {
                                 name="field_id"
                                 rules={{required: "This field is required"}}
                         // eslint-disable-next-line
-                                defaultValue={null as any}
+                                defaultValue={undefined as any}
                                 render={({field}) => (
                                     <Autocomplete {...fieldAutocompleteProps}
                                                   {...field}
@@ -49,11 +49,7 @@ export const PlanCreate: React.FC = () => {
                                                   }}
                                                   getOptionLabel={(item) => {
                                                       return (
-                                                          fieldAutocompleteProps?.options?.find(
-                                                              (p) =>
-                                                                  p?.id?.toString() ===
-                                                                  item?.id?.toString(),
-                                                          )?.name ?? ""
+                                                          item?.name
                                                       );
                                                   }}
                                                   isOptionEqualToValue={(option, value) =>
