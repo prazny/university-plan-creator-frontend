@@ -22,8 +22,13 @@ import {
   GridKeyboardArrowRight,
 } from "@pankod/refine-mui";
 import { IPlans, IField, ICourse, ISemester } from "../../interfaces";
-import { TreeView, TreeItem } from "@mui/lab";
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 import { JsxElement } from "typescript";
+import React from "react";
 
 export const PlanShow: React.FC = () => {
   const { queryResult } = useShow<IPlans>();
@@ -196,21 +201,39 @@ export const PlanShow: React.FC = () => {
       : ([] as Array<ISemester>);
 
   const show_semesters = [] as Array<JSX.Element>;
+  const show_activities = [] as Array<JSX.Element>;
 
-  let index = 0;
+  let index = 1;
+
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
+
+  const columns_activities: GridColumns<ICourse> = [
+    { field: "name", headerName: "Name", flex: 1, minWidth: 200 },
+    { field: "ects", headerName: "ECTS", flex: 1, minWidth: 200 },
+  ];
+
   rows_semester.forEach((semester) => {
-    const show_activities = [] as Array<JSX.Element>;
-    (semester.activities as Array<ICourse>).forEach((activity) => {
-      let text = `Name: ${activity.name} ECTS: ${activity.ects}`;
-      show_activities.push(
-        <TreeItem nodeId={`${index++}`} label={text}></TreeItem>
-      );
-    });
+    // (semester.activities as Array<ICourse>).forEach((activity) => {
+    //   let text = `Name: ${activity.name} ECTS: ${activity.ects}`;
+    //   show_activities.push(
+    //     <TreeItem nodeId={`${index++}`} label={text}></TreeItem>
+    //   );
+    // });
 
     show_semesters.push(
-      <TreeItem nodeId={`${index++}`} label={semester.semester_number}>
-        {show_activities}
-      </TreeItem>
+      <Tab label={semester.semester_number + " semester"} value={`${index}`} />
+    );
+
+    show_activities.push(
+      <TabPanel value={`${index++}`}>
+        <div style={{ height: 500 }}>
+          <DataGrid rows={semester.activities} columns={columns_activities} />
+        </div>
+      </TabPanel>
     );
   });
   console.log(show_semesters);
@@ -227,18 +250,16 @@ export const PlanShow: React.FC = () => {
         >
           {show}
           <Grid item key="semesters" xs={12}>
-            <TreeView
-              aria-label="semesters view"
-              defaultCollapseIcon={<GridExpandMoreIcon />}
-              defaultExpandIcon={<GridKeyboardArrowRight />}
-              sx={{
-                height: 240,
-                flexGrow: 1,
-                overflowY: "auto",
-              }}
-            >
-              {show_semesters}
-            </TreeView>
+            <TabContext value={value}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <TabList onChange={handleChange} aria-label="semester tabs">
+                  {show_semesters}
+                </TabList>
+              </Box>
+              {show_activities}
+            </TabContext>
+
+            {/* </TreeView> */}
           </Grid>
         </Grid>
       </Show>
