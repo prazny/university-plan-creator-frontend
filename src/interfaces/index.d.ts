@@ -77,6 +77,7 @@ enum Type {
 }
 
 enum Form {
-  stationary,
-  remote,
+    stationary,
+    remote,
+    Item
 }

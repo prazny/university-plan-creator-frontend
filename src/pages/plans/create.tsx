@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     useDataGrid,
     DataGrid,
@@ -7,7 +7,7 @@ import {
     Create,
     TextField,
     Box,
-    Autocomplete, useAutocomplete, Select, MenuItem, InputLabel, FormControl
+    Autocomplete, useAutocomplete, Select, MenuItem, InputLabel, FormControl, Grid, Input, Typography
 } from "@pankod/refine-mui";
 import {useForm, Controller} from "@pankod/refine-react-hook-form";
 import {IPlans} from "../../interfaces";
@@ -20,12 +20,29 @@ export const PlanCreate: React.FC = () => {
         refineCore: {formLoading},
         register,
         control,
-        formState: {errors},
+        formState: {errors,},
     } = useForm();
+    const [semestersDetails, setSemestersDetails] = useState<{id: number, ects: number}[]>([])
+
 
     const {autocompleteProps: fieldAutocompleteProps} = useAutocomplete({
         resource: "fields",
     });
+
+    function setSemesterCount(newLen: number) {
+        let len = semestersDetails.length
+        let newSemestersDetails = semestersDetails;
+        if (newLen > len) {
+            newSemestersDetails = semestersDetails
+            while (len < newLen) {
+                newSemestersDetails = [...newSemestersDetails, {"id": len, "ects": 0}]
+                len = len + 1
+            }
+            setSemestersDetails(newSemestersDetails)
+        } else if (newLen < len) {
+            setSemestersDetails(semestersDetails.slice(0, newLen))
+        }
+    }
 
 
     return (
@@ -40,7 +57,7 @@ export const PlanCreate: React.FC = () => {
                                 name="field_id"
                                 rules={{required: "This field is required"}}
                         // eslint-disable-next-line
-                                defaultValue={null as any}
+                                defaultValue={undefined as any}
                                 render={({field}) => (
                                     <Autocomplete {...fieldAutocompleteProps}
                                                   {...field}
@@ -49,11 +66,7 @@ export const PlanCreate: React.FC = () => {
                                                   }}
                                                   getOptionLabel={(item) => {
                                                       return (
-                                                          fieldAutocompleteProps?.options?.find(
-                                                              (p) =>
-                                                                  p?.id?.toString() ===
-                                                                  item?.id?.toString(),
-                                                          )?.name ?? ""
+                                                          item?.name
                                                       );
                                                   }}
                                                   isOptionEqualToValue={(option, value) =>
@@ -77,65 +90,123 @@ export const PlanCreate: React.FC = () => {
 
                     />
 
-                    <TextField
-                        {...register("year", {
-                            required: "This field is required",
-                        })}
-                        error={!!(errors as any)?.title}
-                        helperText={(errors as any)?.title?.message}
-                        margin="normal"
-                        fullWidth
-                        InputLabelProps={{shrink: true}}
-                        type="number"
-                        label="Rok rozpoczęcia"
-                        name="year"
-                    />
-                    <TextField
-                        {...register("number_of_semesters", {
-                            required: "This field is required",
-                        })}
-                        error={!!(errors as any)?.title}
-                        helperText={(errors as any)?.title?.message}
-                        margin="normal"
-                        fullWidth
-                        InputLabelProps={{shrink: true}}
-                        type="number"
-                        label="Liczba semestrów"
-                        name="number_of_semesters"
-                    />
-                    <TextField
-                        {...register("lang", {
-                            required: "This field is required",
-                        })}
-                        error={!!(errors as any)?.title}
-                        helperText={(errors as any)?.title?.message}
-                        margin="normal"
-                        fullWidth
-                        InputLabelProps={{shrink: true}}
-                        type="text"
-                        label="Język"
-                        name="lang"
-                    />
-                    <FormControl fullWidth >
-                        <InputLabel id="form-label">Forma studiów</InputLabel>
-                        <Select
-                            {...register("form", {
-                                required: "This field is required",
+                    <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <TextField
+                                {...register("year", {
+                                    required: "This field is required",
+                                })}
+                                error={!!(errors as any)?.title}
+                                helperText={(errors as any)?.title?.message}
+                                margin="normal"
+                                fullWidth
+                                InputLabelProps={{shrink: true}}
+                                type="number"
+                                label="Rok rozpoczęcia"
+                                name="year"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                {...register("number_of_semesters", {
+                                    required: "This field is required",
+                                })}
+                                onChange={value => setSemesterCount(parseInt(value.target.value))}
+                                error={!!(errors as any)?.title}
+                                helperText={(errors as any)?.title?.message}
+                                margin="normal"
+                                fullWidth
+                                InputLabelProps={{shrink: true}}
+                                type="number"
+                                label="Liczba semestrów"
+                                name="number_of_semesters"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                {...register("lang", {
+                                    required: "This field is required",
+                                })}
+                                error={!!(errors as any)?.title}
+                                helperText={(errors as any)?.title?.message}
+                                margin="normal"
+                                fullWidth
+                                InputLabelProps={{shrink: true}}
+                                type="text"
+                                label="Język"
+                                name="lang"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Controller
+                                control={control}
+                                name="form"
+                                rules={{required: "This field is required"}}
+                                render={({field}) => (
+                                    <Autocomplete
+                                        options={["fulltime", "parttime"]}
+                                        getOptionLabel={(item) => {
+                                            if (item == 'fulltime') return "Stacjonarnie"
+                                            else if (item == 'parttime') return 'Niestacjonarnie'
+                                            return "";
+                                        }}
+                                        {...field}
+                                        defaultValue="file"
+                                        onChange={(_, value) => {
+                                            field.onChange(value);
+                                        }}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                label="Forma studiów"
+                                                margin="normal"
+                                                variant="outlined"
+                                                error={!!errors.type}
+                                                required
+                                            />
+                                        )}
+                                    />
+                                )}
+                            />
+
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography gutterBottom variant="h5">Semestry</Typography>
+                            {semestersDetails.length == 0 &&
+                                <Typography>Wpisz liczbę semestrów</Typography>
+                            }
+
+                            {semestersDetails.map(item => {
+                                return (
+                                    <Grid key={item.id} container spacing={2}>
+                                        <Grid item xs={2}>
+                                            <TextField
+                                                margin="normal"
+                                                fullWidth
+                                                InputLabelProps={{shrink: true}}
+                                                type="text"
+                                                value={item.id +1}
+                                                label="Semestr"
+                                                name="ects"
+                                                disabled
+                                            />
+                                        </Grid>
+                                        <Grid item xs={3}>
+                                            <TextField
+                                                margin="normal"
+                                                fullWidth
+                                                InputLabelProps={{shrink: true}}
+                                                type="text"
+                                                label="Deficyt ECTS"
+                                                name="ects"
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                )
                             })}
-                            error={!!(errors as any)?.title}
-                            label="form"
-                            name="form"
-                            sx={{
-                                width: 200,
-                                height: 50,
-                            }}
-                        >
-                            <MenuItem value="fulltime">stacjonarne</MenuItem>
-                            <MenuItem value="parttime">niestacjonarne</MenuItem>
-                        </Select>
-                    </FormControl>
 
-
+                        </Grid>
+                    </Grid>
                 </Box>
             </Create>
         </>
