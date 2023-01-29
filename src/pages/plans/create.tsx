@@ -17,6 +17,7 @@ import {
   Input,
   Typography,
   SaveButton,
+  width,
 } from "@pankod/refine-mui";
 import {
   useForm,
@@ -91,7 +92,10 @@ export const PlanCreate: React.FC = () => {
 
   return (
     <>
-      <Create isLoading={formLoading}>
+      <Create
+        isLoading={formLoading}
+        saveButtonProps={{ sx: { display: "none" } }}
+      >
         <Box
           component="form"
           sx={{ display: "flex", flexDirection: "column" }}
@@ -256,7 +260,11 @@ export const PlanCreate: React.FC = () => {
               })}
             </Grid>
           </Grid>
-          <SaveButton type="submit">Submit</SaveButton>
+          <div>
+            <SaveButton type="submit" sx={{ float: "right", width: "10em" }}>
+              Submit
+            </SaveButton>
+          </div>
         </Box>
       </Create>
     </>
