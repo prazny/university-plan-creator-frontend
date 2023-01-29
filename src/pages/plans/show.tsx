@@ -1,4 +1,4 @@
-import { useShow, useOne, useMany } from "@pankod/refine-core";
+import { useShow, useOne, useMany, useApiUrl } from "@pankod/refine-core";
 import {
   Show,
   Typography,
@@ -20,6 +20,10 @@ import {
   GridViewHeadlineIcon,
   GridFilterListIcon,
   GridKeyboardArrowRight,
+  DeleteButton,
+  CreateButton,
+  EditButton,
+  GridToolbar,
 } from "@pankod/refine-mui";
 import { IPlans, IField, ICourse, ISemester } from "../../interfaces";
 import Box from "@mui/material/Box";
@@ -29,6 +33,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { JsxElement } from "typescript";
 import React from "react";
+import { axiosInstance } from "@pankod/refine-simple-rest";
 
 export const PlanShow: React.FC = () => {
   const { queryResult } = useShow<IPlans>();
@@ -211,31 +216,65 @@ export const PlanShow: React.FC = () => {
     setValue(newValue);
   };
 
-  const columns_activities: GridColumns<ICourse> = [
-    { field: "name", headerName: "Name", flex: 1, minWidth: 200 },
-    { field: "ects", headerName: "ECTS", flex: 1, minWidth: 200 },
-  ];
+  const apiUrl = useApiUrl();
 
-  rows_semester.forEach((semester) => {
-    // (semester.activities as Array<ICourse>).forEach((activity) => {
-    //   let text = `Name: ${activity.name} ECTS: ${activity.ects}`;
-    //   show_activities.push(
-    //     <TreeItem nodeId={`${index++}`} label={text}></TreeItem>
-    //   );
-    // });
+  const removeCourse = (semester_id: number, course_id: number) => {
+    axiosInstance
+      .delete(`${apiUrl}/semesters/${semester_id}/${course_id}`)
+      .then((response) => window.location.reload());
+  };
 
-    show_semesters.push(
-      <Tab label={semester.semester_number + " semester"} value={`${index}`} />
-    );
+  rows_semester
+    .sort((elem1, elem2) => elem1.semester_number - elem2.semester_number)
+    .forEach((semester) => {
+      show_semesters.push(
+        <Tab
+          label={semester.semester_number + " semester"}
+          value={`${index}`}
+        />
+      );
 
-    show_activities.push(
-      <TabPanel value={`${index++}`}>
-        <div style={{ height: 500 }}>
-          <DataGrid rows={semester.activities} columns={columns_activities} />
-        </div>
-      </TabPanel>
-    );
-  });
+      const columns_activities: GridColumns<ICourse> = [
+        { field: "name", headerName: "Name", flex: 1, minWidth: 200 },
+        { field: "ects", headerName: "ECTS", flex: 1, minWidth: 200 },
+        {
+          field: "actions",
+          headerName: "Actions",
+          renderCell: function render({ row }) {
+            return (
+              <>
+                <DeleteButton
+                  hideText
+                  onClick={() => removeCourse(semester.id, row.id)}
+                />
+              </>
+            );
+          },
+        },
+      ];
+
+      show_activities.push(
+        <TabPanel value={`${index++}`}>
+          <div style={{ height: 500 }}>
+            <EditButton
+              resourceNameOrRouteName="semesters"
+              hideText={true}
+              recordItemId={semester.id}
+            />
+            <Card>
+              <CardContent>
+                Max deficit of ects: {semester.max_ects_deficit}
+              </CardContent>
+            </Card>
+            <DataGrid
+              rows={semester.activities}
+              columns={columns_activities}
+              components={{ Toolbar: GridToolbar }}
+            />
+          </div>
+        </TabPanel>
+      );
+    });
   console.log(show_semesters);
 
   return (
@@ -256,10 +295,9 @@ export const PlanShow: React.FC = () => {
                   {show_semesters}
                 </TabList>
               </Box>
+
               {show_activities}
             </TabContext>
-
-            {/* </TreeView> */}
           </Grid>
         </Grid>
       </Show>

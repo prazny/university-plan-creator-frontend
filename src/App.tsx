@@ -24,6 +24,7 @@ import { FieldCreate } from "./pages/fields/create";
 import { PlanCreate } from "./pages/plans/create";
 import { SemestersList } from "./pages/semesters";
 import { SemesterCreate } from "./pages/semesters/create";
+import { SemesterEditCourses } from "./pages/semesters/editCourses";
 import { PlanShow } from "./pages/plans/show";
 import { OpinionCreate } from "./pages/opinions/create";
 import { UsersList } from "./pages/users";
@@ -33,8 +34,6 @@ import { CourseList } from "./pages/courses";
 import { CourseCreate } from "./pages/courses/create";
 import { CourseShow } from "./pages/courses/show";
 import { CourseEdit } from "./pages/courses/edit";
-
-
 
 const App: React.FC = () => {
   return (
@@ -52,6 +51,12 @@ const App: React.FC = () => {
           catchAll={<ErrorComponent />}
           resources={[
             {
+              name: "plans",
+              list: PlansList,
+              show: PlanShow,
+              create: PlanCreate,
+            },
+            {
               name: "faculties",
               list: FacultyList,
               create: FacultyCreate,
@@ -62,34 +67,29 @@ const App: React.FC = () => {
               create: FieldCreate,
             },
             {
-              name: "plans",
-              list: PlansList,
-              show: PlanShow,
-              create: PlanCreate,
-            },
-            {
               name: "semesters",
               list: SemestersList,
               create: SemesterCreate,
+              edit: SemesterEditCourses,
             },
             {
               name: "courses",
               list: CourseList,
               create: CourseCreate,
               edit: CourseEdit,
-              show: CourseShow
+              show: CourseShow,
             },
             {
               name: "opinions",
               list: OpinionList,
               create: OpinionCreate,
-              show: OpinionShow
+              show: OpinionShow,
             },
             {
               name: "users",
               list: UsersList,
-              create: UserCreate
-            }
+              create: UserCreate,
+            },
           ]}
         />
       </RefineSnackbarProvider>

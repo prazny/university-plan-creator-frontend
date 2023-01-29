@@ -6,6 +6,7 @@ import {
   List,
   ShowButton,
   GridToolbar,
+  DeleteButton,
 } from "@pankod/refine-mui";
 import { useMany } from "@pankod/refine-core";
 import { IPlans, IField } from "../../interfaces";
@@ -28,6 +29,7 @@ const columns: GridColumns<IPlans> = [
       return (
         <>
           <ShowButton hideText recordItemId={row.id} />
+          <DeleteButton hideText recordItemId={row.id} />
         </>
       );
     },
