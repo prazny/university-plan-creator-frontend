@@ -60,15 +60,15 @@ export const PlansList: React.FC = () => {
     return {
       ...row,
       field_name:
-        (field?.name as string).charAt(0).toUpperCase() +
-        (field?.name as string).slice(1),
+        (field?.name as string)?.charAt(0).toUpperCase() +
+        (field?.name as string)?.slice(1),
       field_level:
-        (field?.level as string).charAt(0).toUpperCase() +
-        (field?.level as string).slice(1),
+        (field?.level as string)?.charAt(0).toUpperCase() +
+        (field?.level as string)?.slice(1),
       form: row.form == "fulltime" ? Form.fulltime : Form.parttime,
       lang:
-        (row.lang as string).charAt(0).toUpperCase() +
-        (row.lang as string).slice(1),
+        (row.lang as string)?.charAt(0).toUpperCase() +
+        (row.lang as string)?.slice(1),
     };
   });
 
